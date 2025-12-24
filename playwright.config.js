@@ -1,29 +1,45 @@
-const { defineConfig } = require("@playwright/test");
-require("dotenv").config();
-
-const isCI = process.env.CI === 'true' || !!process.env.TF_BUILD;
+const { defineConfig } = require('@playwright/test');
+require('dotenv').config();
 
 module.exports = defineConfig({
-  testDir: "./tests",
-  workers: isCI ? 4 : 4,
-  globalSetup: require.resolve("./global-setup"),
+  testDir: './tests',
+  testMatch: '**/*.test.js',  
+  workers: 1,
+  timeout: 120000,
+  globalSetup: require.resolve('./global-setup'),
+  
   reporter: [
-    ["list"],
-    ["allure-playwright", { outputFolder: `allure-report-${process.env.JOB_ID || 'default'}` }]
+    ['list'], 
+    ['allure-playwright', { outputFolder: 'allure-results' }]
   ],
+
   use: {
-    headless: isCI ? true : false,               // ✅ headless on Azure
+    headless: false,
     baseURL: process.env.BASE_URL,
-    viewport: isCI ? { width: 1280, height: 800 } : null,
-    storageState: "./auth/state.json",
+    viewport: null,
+    storageState: './auth/state.json',
     ignoreHTTPSErrors: true,
+    actionTimeout: 30000,
+    navigationTimeout: 60000,
+
     launchOptions: {
-      args: isCI ? [] : ["--start-maximized"],
-      slowMo: isCI ? 0 : 50,
+      args: ['--start-maximized'],
+      slowMo: 0,
     },
-    screenshot: "only-on-failure",
-    video: "retain-on-failure",
-    trace: "retain-on-failure",
+
+    // 🔥 REDUCE FILE SIZE - Change these:
+    screenshot: 'only-on-failure',           // or 'only-on-failure' if you need them
+    video: 'off',                // or 'retain-on-failure' 
+    trace: 'off',                // or 'on-first-retry'
   },
-  projects: [{ name: "Chromium", use: { browserName: "chromium" } }],
+
+  projects: [
+    {
+      name: 'Chromium',
+      use: { browserName: 'chromium' },
+    },
+  ],
+
+  retries: 0,
+  maxFailures: 1,
 });

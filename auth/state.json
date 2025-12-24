@@ -2,57 +2,37 @@
   "cookies": [
     {
       "name": "CLID",
-      "value": "1f988c19e69048f5bfecd1e57b04dc45.20250808.20260808",
+      "value": "4fcecf3d27aa4b48af95c00ea0804bd6.20251224.20261224",
       "domain": "www.clarity.ms",
       "path": "/",
-      "expires": 1786212836.792238,
+      "expires": 1798099273.959908,
       "httpOnly": true,
       "secure": true,
       "sameSite": "None"
     },
     {
       "name": "_clck",
-      "value": "gfgj0h%7C2%7Cfya%7C0%7C2046",
+      "value": "o1qb51%5E2%5Eg24%5E0%5E2184",
       "domain": ".sqzvip.com",
       "path": "/",
-      "expires": 1786212837,
+      "expires": 1798099274,
       "httpOnly": false,
       "secure": false,
       "sameSite": "Lax"
     },
     {
-      "name": "MUID",
-      "value": "26563739933C65443937217B929464A2",
-      "domain": ".bing.com",
+      "name": "_clsk",
+      "value": "13sbqtc%5E1766563276004%5E1%5E1%5El.clarity.ms%2Fcollect",
+      "domain": ".sqzvip.com",
       "path": "/",
-      "expires": 1788372838.749944,
+      "expires": 1766649676,
       "httpOnly": false,
-      "secure": true,
-      "sameSite": "None"
-    },
-    {
-      "name": "MR",
-      "value": "0",
-      "domain": ".c.bing.com",
-      "path": "/",
-      "expires": 1755281638.750024,
-      "httpOnly": false,
-      "secure": true,
-      "sameSite": "None"
-    },
-    {
-      "name": "SRM_B",
-      "value": "26563739933C65443937217B929464A2",
-      "domain": ".c.bing.com",
-      "path": "/",
-      "expires": 1788372838.750047,
-      "httpOnly": false,
-      "secure": true,
-      "sameSite": "None"
+      "secure": false,
+      "sameSite": "Lax"
     },
     {
       "name": "SM",
-      "value": "C",
+      "value": "T",
       "domain": ".c.clarity.ms",
       "path": "/",
       "expires": -1,
@@ -62,10 +42,20 @@
     },
     {
       "name": "MUID",
-      "value": "26563739933C65443937217B929464A2",
+      "value": "1B9A8A674F6666C3144E9CAB4B666898",
       "domain": ".clarity.ms",
       "path": "/",
-      "expires": 1788372837.895257,
+      "expires": 1800259284.400945,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "MUID",
+      "value": "1D2D1896D46866E6261C0E5AD5DA6764",
+      "domain": ".bing.com",
+      "path": "/",
+      "expires": 1800259285.722624,
       "httpOnly": false,
       "secure": true,
       "sameSite": "None"
@@ -73,32 +63,22 @@
     {
       "name": "MR",
       "value": "0",
-      "domain": ".c.clarity.ms",
+      "domain": ".c.bing.com",
       "path": "/",
-      "expires": 1755281637.895317,
+      "expires": 1767168085.722751,
       "httpOnly": false,
       "secure": true,
       "sameSite": "None"
     },
     {
-      "name": "ANONCHK",
-      "value": "0",
-      "domain": ".c.clarity.ms",
+      "name": "SRM_B",
+      "value": "1D2D1896D46866E6261C0E5AD5DA6764",
+      "domain": ".c.bing.com",
       "path": "/",
-      "expires": 1754677437.895345,
+      "expires": 1800259285.722798,
       "httpOnly": false,
       "secure": true,
       "sameSite": "None"
-    },
-    {
-      "name": "_clsk",
-      "value": "xq4d0o%7C1754676841819%7C2%7C1%7Cj.clarity.ms%2Fcollect",
-      "domain": ".sqzvip.com",
-      "path": "/",
-      "expires": 1754763241,
-      "httpOnly": false,
-      "secure": false,
-      "sameSite": "Lax"
     }
   ],
   "origins": [
@@ -106,32 +86,16 @@
       "origin": "https://admin.sqzvip.com",
       "localStorage": [
         {
-          "name": "userInfo",
-          "value": "{\"firstName\":\"Super\",\"lastName\":\"Admin\",\"email\":\"legalsqueez@yopmail.com\",\"countryCode\":\"+91\",\"password\":\"918ee8d2cbfc6973dc045ec96bab2597b573efcd698f5a74d80eafc70c6aadf2\",\"mobileNumber\":\"9268468490\",\"profilePic\":null,\"otp\":5151,\"token\":[\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3YTRiZDM0ZDljY2FhMmZjZGZkNTg1NyIsImVtYWlsIjoibGVnYWxzcXVlZXpAeW9wbWFpbC5jb20iLCJyb2xlIjpbInN1cGVyQWRtaW4iXSwicm9sZUlkIjpbMV0sImlhdCI6MTc1NDY3Njg0MCwiZXhwIjoxNzU3MjY4ODQwfQ.qVMZhre2YX_lXXVoDWZ20HVul8gBLvb3NwO_Haj5JRk\"],\"refreshToken\":[\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3YTRiZDM0ZDljY2FhMmZjZGZkNTg1NyIsImVtYWlsIjoibGVnYWxzcXVlZXpAeW9wbWFpbC5jb20iLCJyb2xlIjpbInN1cGVyQWRtaW4iXSwicm9sZUlkIjpbMV0sImlhdCI6MTc1NDY3Njg0MCwiZXhwIjoxNzcwMjI4ODQwfQ.VUXm9Iw1gxEPZKmQCQBfoX1-mb6cWAKJLWSlkSPgPpI\"],\"dateOfBirth\":\"\",\"countryId\":101,\"stateId\":4030,\"cityId\":57606,\"zipCode\":\"57606\",\"linkedIn\":\"\",\"instagram\":\"\",\"facebook\":\"\",\"dialCode\":null,\"isVerified\":false,\"isUserFirstLogin\":true,\"golfs\":[],\"restaurants\":[],\"hotels\":[],\"wellness\":[],\"healthcares\":[],\"manageRestaurants\":[],\"manageGolfs\":[],\"manageHotels\":[],\"manageWellness\":[],\"manageHealthCare\":[],\"superUserRestaurants\":[],\"superUserGolfs\":[],\"superUserHotels\":[],\"superUserWellness\":[],\"superUserHealthCare\":[],\"valletUserRestaurants\":[],\"valletUserGolfs\":[],\"valletUserHotels\":[],\"valletUserWellness\":[],\"valletUserHealthCare\":[],\"Is24HoursOn\":false,\"source\":0,\"loginAttempts\":0,\"lockUntil\":null,\"lastLoginAttempt\":null,\"IsProfileCompleted\":false,\"isUserActive\":1,\"IsDeleted\":false,\"role\":[\"superAdmin\"],\"roleId\":[1],\"isVerifiedUser\":true,\"_id\":\"67a4bd34d9ccaa2fcdfd5857\",\"isEmailVerified\":false,\"createdAt\":\"2023-06-30T11:22:53.853Z\",\"updatedAt\":\"2025-07-21T12:43:19.514Z\",\"__v\":1}"
+          "name": "persist:userInfo",
+          "value": "{\"userData\":\"null\",\"_persist\":\"{\\\"version\\\":-1,\\\"rehydrated\\\":true}\"}"
         },
         {
           "name": "maintenanceData",
           "value": "true"
         },
         {
-          "name": "refreshToken",
-          "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3YTRiZDM0ZDljY2FhMmZjZGZkNTg1NyIsImVtYWlsIjoibGVnYWxzcXVlZXpAeW9wbWFpbC5jb20iLCJyb2xlIjpbInN1cGVyQWRtaW4iXSwicm9sZUlkIjpbMV0sImlhdCI6MTc1NDY3Njg0MCwiZXhwIjoxNzcwMjI4ODQwfQ.VUXm9Iw1gxEPZKmQCQBfoX1-mb6cWAKJLWSlkSPgPpI"
-        },
-        {
-          "name": "pathName",
-          "value": "/dashboard"
-        },
-        {
           "name": "kt_theme_mode_value",
           "value": "light"
-        },
-        {
-          "name": "title",
-          "value": "Dashboard"
-        },
-        {
-          "name": "userToken",
-          "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3YTRiZDM0ZDljY2FhMmZjZGZkNTg1NyIsImVtYWlsIjoibGVnYWxzcXVlZXpAeW9wbWFpbC5jb20iLCJyb2xlIjpbInN1cGVyQWRtaW4iXSwicm9sZUlkIjpbMV0sImlhdCI6MTc1NDY3Njg0MCwiZXhwIjoxNzU3MjY4ODQwfQ.qVMZhre2YX_lXXVoDWZ20HVul8gBLvb3NwO_Haj5JRk"
         }
       ]
     }

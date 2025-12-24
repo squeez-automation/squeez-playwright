@@ -1,151 +1,233 @@
-trigger:
-- main
+# trigger:
+#  - main
 
-pool:
-  vmImage: ubuntu-latest
+# pool:
+#  vmImage: ubuntu-latest
 
-variables:
-  NODE_VERSION: '20.x'
-  WORKDIR: '$(System.DefaultWorkingDirectory)'
-  PW_BROWSERS_CACHE_DIR: '$(Pipeline.Workspace)/.pw-browsers'
-  NPM_CACHE_DIR: '$(Pipeline.Workspace)/.npm'
+# variables:
+# <<<<<<< Updated upstream
+#   NODE_VERSION: '20.x'
+#   WORKDIR: '$(System.DefaultWorkingDirectory)'
+#   PW_BROWSERS_CACHE_DIR: '$(Pipeline.Workspace)/.pw-browsers'
+#   NPM_CACHE_DIR: '$(Pipeline.Workspace)/.npm'
 
-steps:
-# 0) Checkout
-- checkout: self
-  fetchDepth: 0
-  submodules: recursive
-  clean: true
+# steps:
+# # 0) Checkout
+# - checkout: self
+#   fetchDepth: 0
+#   submodules: recursive
+#   clean: true
 
-# 0.1) Quick tree
-- script: |
-    echo "==== GIT COMMIT ===="
-    git rev-parse HEAD
-    echo "==== TREE ===="
-    ls -la
-  workingDirectory: '$(WORKDIR)'
-  displayName: 'Verify checkout (commit + files)'
+# # 0.1) Quick tree
+# - script: |
+#     echo "==== GIT COMMIT ===="
+# =======
+#  NODE_VERSION: "20.x"
+#  WORKDIR: "$(System.DefaultWorkingDirectory)"
+#  PW_BROWSERS_CACHE_DIR: "$(Pipeline.Workspace)/.pw-browsers" # shared cache dir
+#  NPM_CACHE_DIR: "$(Pipeline.Workspace)/.npm"
 
-# 1) Node
-- task: NodeTool@0
-  inputs:
-    versionSpec: '$(NODE_VERSION)'
-  displayName: 'Use Node.js $(NODE_VERSION)'
+# steps:
+#  # 0) Explicitly check out the repo (full history & submodules if any)
+#  - checkout: self
+#    fetchDepth: 0
+#    submodules: recursive
+#    clean: true
 
-# 2) Cache npm
-- task: Cache@2
-  displayName: 'Restore npm cache'
-  inputs:
-    key: 'npm|$(Agent.OS)|$(Build.SourcesDirectory)/package-lock.json'
-    restoreKeys: |
-      npm|$(Agent.OS)
-    path: '$(NPM_CACHE_DIR)'
+#  # 0.1) Prove what's on disk (commit, files)
+#  - script: |
+#     echo "==== GIT REMOTE & COMMIT ===="
+#     git remote -v
+# >>>>>>> Stashed changes
+#     git rev-parse HEAD
+#     echo "==== TREE ===="
+#     ls -la
+# <<<<<<< Updated upstream
+#   workingDirectory: '$(WORKDIR)'
+#   displayName: 'Verify checkout (commit + files)'
+# =======
+#     echo "==== PAGES / TESTS / UTILS ===="
+#     ls -la pages || true
+#     ls -la tests || true
+#     ls -la utils || true
+#    workingDirectory: "$(WORKDIR)"
+#    displayName: "Verify checkout (commit + files)"
+# >>>>>>> Stashed changes
 
-# Install deps (and ensure Allure CLI is available)
-- script: |
-    npm config set cache "$(NPM_CACHE_DIR)" --global
-    npm ci
-    # Ensure the correct Allure CLI is available (v2)
-    npx --yes allure-commandline@latest --version
-  workingDirectory: '$(WORKDIR)'
-  displayName: 'Install npm dependencies (+ verify Allure)'
+#  # 1) Node
+#  - task: NodeTool@0
+#    inputs:
+#     versionSpec: "$(NODE_VERSION)"
+#    displayName: "Use Node.js $(NODE_VERSION)"
 
-# 3) Cache Playwright browsers
-- task: Cache@2
-  displayName: 'Restore Playwright browsers cache'
-  inputs:
-    key: 'pw-browsers|$(Agent.OS)|$(Build.SourcesDirectory)/package-lock.json'
-    path: '$(PW_BROWSERS_CACHE_DIR)'
+#  # 2) Cache npm
+#  - task: Cache@2
+#    displayName: "Restore npm cache"
+#    inputs:
+#     key: "npm|$(Agent.OS)|$(Build.SourcesDirectory)/package-lock.json"
+#     restoreKeys: |
+#      npm|$(Agent.OS)
+#     path: "$(NPM_CACHE_DIR)"
 
-- script: |
-    export PLAYWRIGHT_BROWSERS_PATH="$(PW_BROWSERS_CACHE_DIR)"
-    echo "PLAYWRIGHT_BROWSERS_PATH=$PLAYWRIGHT_BROWSERS_PATH"
-    if [ ! -d "$(PW_BROWSERS_CACHE_DIR)" ] || [ -z "$(ls -A "$(PW_BROWSERS_CACHE_DIR)" 2>/dev/null)" ]; then
-      echo "No cached browsers found. Installing..."
-      npx playwright install --with-deps
-    else
-      echo "Browsers found in cache. Skipping install."
-    fi
-  workingDirectory: '$(WORKDIR)'
-  displayName: 'Ensure Playwright browsers are available'
+# <<<<<<< Updated upstream
+# # Install deps (and ensure Allure CLI is available)
+# - script: |
+#     npm config set cache "$(NPM_CACHE_DIR)" --global
+#     npm ci
+#     # Ensure the correct Allure CLI is available (v2)
+#     npx --yes allure-commandline@latest --version
+#   workingDirectory: '$(WORKDIR)'
+#   displayName: 'Install npm dependencies (+ verify Allure)'
 
-# 4) Run tests => Allure results only
-- script: |
-    export PLAYWRIGHT_BROWSERS_PATH="$(PW_BROWSERS_CACHE_DIR)"
-    echo "Running Playwright tests with Allure reporter..."
-    npx playwright test --reporter=line,allure-playwright
-  workingDirectory: '$(WORKDIR)'
-  displayName: 'Run Playwright Tests (Allure)'
+# # 3) Cache Playwright browsers
+# - task: Cache@2
+#   displayName: 'Restore Playwright browsers cache'
+#   inputs:
+#     key: 'pw-browsers|$(Agent.OS)|$(Build.SourcesDirectory)/package-lock.json'
+#     path: '$(PW_BROWSERS_CACHE_DIR)'
 
-# 5) Generate Allure HTML report (guarded if no results)
-- script: |
-    echo "Generating Allure report from ./allure-results..."
-    if [ -d "./allure-results" ] && [ "$(ls -A ./allure-results 2>/dev/null)" ]; then
-      npx allure-commandline --version
-      npx allure-commandline generate ./allure-results --clean -o allure-report
-    else
-      echo "No allure-results found; skipping report generation."
-      mkdir -p allure-report && echo "<h3>No Allure results found</h3>" > allure-report/index.html
-    fi
-  workingDirectory: '$(WORKDIR)'
-  condition: always()
-  displayName: 'Generate Allure HTML report'
+# - script: |
+# =======
+#  # let npm use the pipeline cache dir
+#  - script: |
+#     npm config set cache "$(NPM_CACHE_DIR)" --global
+#     npm ci
+#    workingDirectory: "$(WORKDIR)"
+#    displayName: "Install npm dependencies (uses cache)"
 
-# 6) Publish HTML report (Build Artifact)
-- task: PublishBuildArtifacts@1
-  inputs:
-    PathtoPublish: '$(WORKDIR)/allure-report'
-    ArtifactName: 'allure-report'
-  condition: always()
-  displayName: 'Publish Allure HTML Report'
+#  # 3) Cache Playwright browsers (HUGE speedup)
+#  #    We also point PLAYWRIGHT_BROWSERS_PATH to a cached folder.
+#  - task: Cache@2
+#    displayName: "Restore Playwright browsers cache"
+#    inputs:
+#     key: "pw-browsers|$(Agent.OS)|$(Build.SourcesDirectory)/package-lock.json"
+#     path: "$(PW_BROWSERS_CACHE_DIR)"
 
-# 6a) Also publish as Pipeline Artifact (shows in run header) — RENAMED to avoid clash
-- task: PublishPipelineArtifact@1
-  inputs:
-    targetPath: '$(WORKDIR)/allure-report'
-    artifact: 'allure-report-pipeline'   # <- new unique name
-    publishLocation: 'pipeline'
-  condition: always()
-  displayName: 'Publish Allure HTML (Pipeline Artifact)'
+#  # Install browsers only if missing
+#  - script: |
+# >>>>>>> Stashed changes
+#     export PLAYWRIGHT_BROWSERS_PATH="$(PW_BROWSERS_CACHE_DIR)"
+#     echo "PLAYWRIGHT_BROWSERS_PATH=$PLAYWRIGHT_BROWSERS_PATH"
+#     if [ ! -d "$(PW_BROWSERS_CACHE_DIR)" ] || [ -z "$(ls -A "$(PW_BROWSERS_CACHE_DIR)" 2>/dev/null)" ]; then
+#       echo "No cached browsers found. Installing..."
+#       npx playwright install --with-deps
+#     else
+#       echo "Browsers found in cache. Skipping install."
+#     fi
+#    workingDirectory: "$(WORKDIR)"
+#    displayName: "Ensure Playwright browsers are available"
 
-# 6b) Zip the report for easy download
-- task: ArchiveFiles@2
-  inputs:
-    rootFolderOrFile: '$(WORKDIR)/allure-report'
-    includeRootFolder: false
-    archiveType: 'zip'
-    archiveFile: '$(Build.ArtifactStagingDirectory)/allure-report.zip'
-    replaceExistingArchive: true
-  condition: always()
-  displayName: 'Zip Allure report'
+# <<<<<<< Updated upstream
+# # 4) Run tests => Allure results only
+# - script: |
+#     export PLAYWRIGHT_BROWSERS_PATH="$(PW_BROWSERS_CACHE_DIR)"
+#     echo "Running Playwright tests with Allure reporter..."
+#     npx playwright test --reporter=line,allure-playwright
+#   workingDirectory: '$(WORKDIR)'
+#   displayName: 'Run Playwright Tests (Allure)'
 
-- task: PublishBuildArtifacts@1
-  inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)/allure-report.zip'
-    ArtifactName: 'allure-report-zip'
-  condition: always()
-  displayName: 'Publish zipped Allure report'
+# # 5) Generate Allure HTML report (guarded if no results)
+# - script: |
+#     echo "Generating Allure report from ./allure-results..."
+#     if [ -d "./allure-results" ] && [ "$(ls -A ./allure-results 2>/dev/null)" ]; then
+#       npx allure-commandline --version
+#       npx allure-commandline generate ./allure-results --clean -o allure-report
+#     else
+#       echo "No allure-results found; skipping report generation."
+#       mkdir -p allure-report && echo "<h3>No Allure results found</h3>" > allure-report/index.html
+#     fi
+#   workingDirectory: '$(WORKDIR)'
+#   condition: always()
+#   displayName: 'Generate Allure HTML report'
 
-# 6c) (Optional) Publish raw Allure results too
-- task: PublishBuildArtifacts@1
-  inputs:
-    PathtoPublish: '$(WORKDIR)/allure-results'
-    ArtifactName: 'allure-results'
-  condition: always()
-  displayName: 'Publish raw Allure results'
+# # 6) Publish HTML report (Build Artifact)
+# - task: PublishBuildArtifacts@1
+#   inputs:
+#     PathtoPublish: '$(WORKDIR)/allure-report'
+#     ArtifactName: 'allure-report'
+#   condition: always()
+#   displayName: 'Publish Allure HTML Report'
 
-# 7) Add a clickable link in the Build Summary
-- script: |
-    SUMMARY_FILE="$(Build.SourcesDirectory)/AllureReportSummary.md"
-    ARTIFACT_URL="$(System.TeamFoundationCollectionUri)$(System.TeamProject)/_build/results?buildId=$(Build.BuildId)&view=artifacts&type=publishedArtifacts"
-    echo "### 📊 Allure Report" > "$SUMMARY_FILE"
-    echo "" >> "$SUMMARY_FILE"
-    echo "The Allure HTML report has been published as build and pipeline artifacts." >> "$SUMMARY_FILE"
-    echo "" >> "$SUMMARY_FILE"
-    echo "- **Open artifacts:** [$ARTIFACT_URL]($ARTIFACT_URL)" >> "$SUMMARY_FILE"
-    echo "- **Artifact names:** \`allure-report\`, \`allure-report-pipeline\`, \`allure-report-zip\`, \`allure-results\`" >> "$SUMMARY_FILE"
-    echo "" >> "$SUMMARY_FILE"
-    echo "Download the artifact and open \`index.html\` via a local server (not file://) to view the full Allure report." >> "$SUMMARY_FILE"
-    echo "##vso[task.addattachment type=Distributedtask.Core.Summary;name=Allure Report;]$SUMMARY_FILE"
-  displayName: 'Add Allure link to Build Summary'
-  condition: always()
+# # 6a) Also publish as Pipeline Artifact (shows in run header) — RENAMED to avoid clash
+# - task: PublishPipelineArtifact@1
+#   inputs:
+#     targetPath: '$(WORKDIR)/allure-report'
+#     artifact: 'allure-report-pipeline'   # <- new unique name
+#     publishLocation: 'pipeline'
+#   condition: always()
+#   displayName: 'Publish Allure HTML (Pipeline Artifact)'
+
+# # 6b) Zip the report for easy download
+# - task: ArchiveFiles@2
+#   inputs:
+#     rootFolderOrFile: '$(WORKDIR)/allure-report'
+#     includeRootFolder: false
+#     archiveType: 'zip'
+#     archiveFile: '$(Build.ArtifactStagingDirectory)/allure-report.zip'
+#     replaceExistingArchive: true
+#   condition: always()
+#   displayName: 'Zip Allure report'
+
+# - task: PublishBuildArtifacts@1
+#   inputs:
+#     PathtoPublish: '$(Build.ArtifactStagingDirectory)/allure-report.zip'
+#     ArtifactName: 'allure-report-zip'
+#   condition: always()
+#   displayName: 'Publish zipped Allure report'
+
+# # 6c) (Optional) Publish raw Allure results too
+# - task: PublishBuildArtifacts@1
+#   inputs:
+#     PathtoPublish: '$(WORKDIR)/allure-results'
+#     ArtifactName: 'allure-results'
+#   condition: always()
+#   displayName: 'Publish raw Allure results'
+
+# # 7) Add a clickable link in the Build Summary
+# - script: |
+#     SUMMARY_FILE="$(Build.SourcesDirectory)/AllureReportSummary.md"
+#     ARTIFACT_URL="$(System.TeamFoundationCollectionUri)$(System.TeamProject)/_build/results?buildId=$(Build.BuildId)&view=artifacts&type=publishedArtifacts"
+#     echo "### 📊 Allure Report" > "$SUMMARY_FILE"
+#     echo "" >> "$SUMMARY_FILE"
+#     echo "The Allure HTML report has been published as build and pipeline artifacts." >> "$SUMMARY_FILE"
+#     echo "" >> "$SUMMARY_FILE"
+#     echo "- **Open artifacts:** [$ARTIFACT_URL]($ARTIFACT_URL)" >> "$SUMMARY_FILE"
+#     echo "- **Artifact names:** \`allure-report\`, \`allure-report-pipeline\`, \`allure-report-zip\`, \`allure-results\`" >> "$SUMMARY_FILE"
+#     echo "" >> "$SUMMARY_FILE"
+#     echo "Download the artifact and open \`index.html\` via a local server (not file://) to view the full Allure report." >> "$SUMMARY_FILE"
+#     echo "##vso[task.addattachment type=Distributedtask.Core.Summary;name=Allure Report;]$SUMMARY_FILE"
+#   displayName: 'Add Allure link to Build Summary'
+#   condition: always()
+# =======
+#  # 4) Run tests with a deterministic JUnit XML path
+#  #    Configure reporters from CLI so PublishTestResults can find them.
+#  - script: |
+#     export PLAYWRIGHT_BROWSERS_PATH="$(PW_BROWSERS_CACHE_DIR)"
+#     echo "Running Playwright tests..."
+#     # Create results folder up front
+#     mkdir -p test-results
+#     # JUnit output file is controlled by PW_TEST_JUNIT_OUTPUT
+#     export PW_TEST_JUNIT_OUTPUT="test-results/junit.xml"
+#     # HTML report folder is 'playwright-report' by default unless overridden in config
+#     npx playwright test --reporter=list,junit
+#    workingDirectory: "$(WORKDIR)"
+#    displayName: "Run Playwright Tests"
+
+#  # 5) Publish JUnit results
+#  - task: PublishTestResults@2
+#    inputs:
+#     testResultsFormat: "JUnit"
+#     testResultsFiles: "$(WORKDIR)/test-results/junit.xml"
+#     testRunTitle: "Playwright Test Results"
+#     mergeTestResults: true
+#    condition: always()
+#    displayName: "Publish JUnit results"
+
+#  # 6) Publish HTML report (if generated)
+#  - task: PublishBuildArtifacts@1
+#    inputs:
+#     PathtoPublish: "$(WORKDIR)/playwright-report"
+#     ArtifactName: "playwright-report"
+#    condition: always()
+#    displayName: "Publish Playwright HTML Report"
+# >>>>>>> Stashed changes

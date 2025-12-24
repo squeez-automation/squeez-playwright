@@ -1,28 +1,33 @@
 {
-  "name": "squeez-playwright",
-  "version": "1.0.0",
-  "description": "Playwright automation for Squeez admin panel",
-  "main": "index.js",
-  "scripts": {
-    "test": "playwright test || npm run report",
-    "test:headed": "playwright test --headed || npm run report",
-    "test:sanity": "playwright test tests/sanity --headed || npm run report",
-    "test:regression": "playwright test tests/regression || npm run report",
-    "regenerate:session": "node config/global-setup.js",
-    "allure:generate": "allure generate ./allure-results --clean",
-    "allure:open": "allure open",
-    "report": "npm run allure:generate && npm run allure:open"
-  },
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "allure-playwright": "^3.3.1",
-    "prettier": "^3.6.1"
-  },
-  "dependencies": {
-    "@playwright/test": "^1.54.1",
-    "dotenv": "^16.5.0",
-    "playwright": "^1.54.1",
-    "xlsx": "^0.18.5"
-  }
+ "name": "squeez-playwright",
+ "version": "1.0.0",
+ "description": "Playwright automation for Squeez admin panel",
+ "main": "index.js",
+ "scripts": {
+  "test": "playwright test",
+  "test:headed": "playwright test --headed",
+  "test:sanity": "node tests/sanity.test.js",
+  "allure:serve": "allure serve allure-results",
+  "allure:open": "allure open allure-report",
+  "allure:clean": "rm -rf allure-results allure-report"
+ },
+ "author": "",
+ "license": "ISC",
+ "devDependencies": {
+  "@playwright/test": "^1.56.1",
+  "allure-commandline": "^2.34.1",
+  "allure-playwright": "^3.4.2",
+  "prettier": "^3.6.2"
+ },
+ "dependencies": {
+  "axios": "^1.12.2",
+  "chalk": "^5.6.2",
+  "crypto-js": "^4.2.0",
+  "dotenv": "^16.5.0",
+  "imapflow": "^1.0.196",
+  "mailparser": "^3.7.4",
+  "mailslurp-client": "^16.0.0",
+  "playwright": "^1.54.1",
+  "xlsx": "^0.18.5"
+ }
 }

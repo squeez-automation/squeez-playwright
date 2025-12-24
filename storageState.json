@@ -1,139 +1,139 @@
 {
-  "cookies": [
+ "cookies": [
+  {
+   "name": "CLID",
+   "value": "b2bef37274cc4ecca6d76a6d3373612b.20250713.20260713",
+   "domain": "www.clarity.ms",
+   "path": "/",
+   "expires": 1783922993.2603,
+   "httpOnly": true,
+   "secure": true,
+   "sameSite": "None"
+  },
+  {
+   "name": "_clck",
+   "value": "147gtpo%7C2%7Cfxk%7C0%7C2020",
+   "domain": ".sqzvip.com",
+   "path": "/",
+   "expires": 1783922993,
+   "httpOnly": false,
+   "secure": false,
+   "sameSite": "Lax"
+  },
+  {
+   "name": "MUID",
+   "value": "12962D9310F16BDC3EE03BBB11956A2A",
+   "domain": ".bing.com",
+   "path": "/",
+   "expires": 1786082994.555119,
+   "httpOnly": false,
+   "secure": true,
+   "sameSite": "None"
+  },
+  {
+   "name": "MR",
+   "value": "0",
+   "domain": ".c.bing.com",
+   "path": "/",
+   "expires": 1752991794.555221,
+   "httpOnly": false,
+   "secure": true,
+   "sameSite": "None"
+  },
+  {
+   "name": "SRM_B",
+   "value": "12962D9310F16BDC3EE03BBB11956A2A",
+   "domain": ".c.bing.com",
+   "path": "/",
+   "expires": 1786082994.555255,
+   "httpOnly": false,
+   "secure": true,
+   "sameSite": "None"
+  },
+  {
+   "name": "_clsk",
+   "value": "13kqui8%7C1752386994623%7C2%7C1%7Cb.clarity.ms%2Fcollect",
+   "domain": ".sqzvip.com",
+   "path": "/",
+   "expires": 1752473394,
+   "httpOnly": false,
+   "secure": false,
+   "sameSite": "Lax"
+  },
+  {
+   "name": "SM",
+   "value": "C",
+   "domain": ".c.clarity.ms",
+   "path": "/",
+   "expires": -1,
+   "httpOnly": false,
+   "secure": true,
+   "sameSite": "None"
+  },
+  {
+   "name": "MUID",
+   "value": "12962D9310F16BDC3EE03BBB11956A2A",
+   "domain": ".clarity.ms",
+   "path": "/",
+   "expires": 1786082994.694662,
+   "httpOnly": false,
+   "secure": true,
+   "sameSite": "None"
+  },
+  {
+   "name": "MR",
+   "value": "0",
+   "domain": ".c.clarity.ms",
+   "path": "/",
+   "expires": 1752991794.694698,
+   "httpOnly": false,
+   "secure": true,
+   "sameSite": "None"
+  },
+  {
+   "name": "ANONCHK",
+   "value": "0",
+   "domain": ".c.clarity.ms",
+   "path": "/",
+   "expires": 1752387594.694715,
+   "httpOnly": false,
+   "secure": true,
+   "sameSite": "None"
+  }
+ ],
+ "origins": [
+  {
+   "origin": "https://admin.sqzvip.com",
+   "localStorage": [
     {
-      "name": "CLID",
-      "value": "b2bef37274cc4ecca6d76a6d3373612b.20250713.20260713",
-      "domain": "www.clarity.ms",
-      "path": "/",
-      "expires": 1783922993.2603,
-      "httpOnly": true,
-      "secure": true,
-      "sameSite": "None"
+     "name": "userInfo",
+     "value": "{\"_id\":\"67a4bd34d9ccaa2fcdfd5857\",\"firstName\":\"Super\",\"lastName\":\"Admin\",\"email\":\"legalsqueez@yopmail.com\",\"countryCode\":\"+91\",\"mobileNumber\":\"9268468490\",\"dateOfBirth\":\"\",\"countryId\":101,\"stateId\":4030,\"cityId\":57606,\"zipCode\":57606,\"role\":[\"superAdmin\"],\"roleId\":[1],\"manageRestaurants\":[],\"manageGolfs\":[],\"manageHealthCare\":[],\"manageHotels\":[],\"manageWellness\":[],\"Is24HoursOn\":false,\"superUserGolfs\":[],\"superUserHealthCare\":[],\"superUserHotels\":[],\"superUserRestaurants\":[],\"superUserWellness\":[],\"valletUserGolfs\":[],\"valletUserHotels\":[],\"valletUserRestaurants\":[],\"valletUserWellness\":[],\"isVerifiedUser\":true,\"token\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3YTRiZDM0ZDljY2FhMmZjZGZkNTg1NyIsImVtYWlsIjoibGVnYWxzcXVlZXpAeW9wbWFpbC5jb20iLCJyb2xlIjpbInN1cGVyQWRtaW4iXSwicm9sZUlkIjpbMV0sImlhdCI6MTc1MjM4Njk5NiwiZXhwIjoxNzU0OTc4OTk2fQ.uyil_3Qhmx9xgzLtXjQvQxIquVX2rBrekww-a03v21I\",\"refreshToken\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3YTRiZDM0ZDljY2FhMmZjZGZkNTg1NyIsImVtYWlsIjoibGVnYWxzcXVlZXpAeW9wbWFpbC5jb20iLCJyb2xlIjpbInN1cGVyQWRtaW4iXSwicm9sZUlkIjpbMV0sImlhdCI6MTc1MjM4Njk5NiwiZXhwIjoxNzY3OTM4OTk2fQ.BSQ21pnuh31Uu51Pyf1kjf4i5_MzVGIWPJWqvf9zRCI\"}"
     },
     {
-      "name": "_clck",
-      "value": "147gtpo%7C2%7Cfxk%7C0%7C2020",
-      "domain": ".sqzvip.com",
-      "path": "/",
-      "expires": 1783922993,
-      "httpOnly": false,
-      "secure": false,
-      "sameSite": "Lax"
+     "name": "maintenanceData",
+     "value": "true"
     },
     {
-      "name": "MUID",
-      "value": "12962D9310F16BDC3EE03BBB11956A2A",
-      "domain": ".bing.com",
-      "path": "/",
-      "expires": 1786082994.555119,
-      "httpOnly": false,
-      "secure": true,
-      "sameSite": "None"
+     "name": "refreshToken",
+     "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3YTRiZDM0ZDljY2FhMmZjZGZkNTg1NyIsImVtYWlsIjoibGVnYWxzcXVlZXpAeW9wbWFpbC5jb20iLCJyb2xlIjpbInN1cGVyQWRtaW4iXSwicm9sZUlkIjpbMV0sImlhdCI6MTc1MjM4Njk5NiwiZXhwIjoxNzY3OTM4OTk2fQ.BSQ21pnuh31Uu51Pyf1kjf4i5_MzVGIWPJWqvf9zRCI"
     },
     {
-      "name": "MR",
-      "value": "0",
-      "domain": ".c.bing.com",
-      "path": "/",
-      "expires": 1752991794.555221,
-      "httpOnly": false,
-      "secure": true,
-      "sameSite": "None"
+     "name": "pathName",
+     "value": "/dashboard"
     },
     {
-      "name": "SRM_B",
-      "value": "12962D9310F16BDC3EE03BBB11956A2A",
-      "domain": ".c.bing.com",
-      "path": "/",
-      "expires": 1786082994.555255,
-      "httpOnly": false,
-      "secure": true,
-      "sameSite": "None"
+     "name": "kt_theme_mode_value",
+     "value": "light"
     },
     {
-      "name": "_clsk",
-      "value": "13kqui8%7C1752386994623%7C2%7C1%7Cb.clarity.ms%2Fcollect",
-      "domain": ".sqzvip.com",
-      "path": "/",
-      "expires": 1752473394,
-      "httpOnly": false,
-      "secure": false,
-      "sameSite": "Lax"
+     "name": "title",
+     "value": "Dashboard"
     },
     {
-      "name": "SM",
-      "value": "C",
-      "domain": ".c.clarity.ms",
-      "path": "/",
-      "expires": -1,
-      "httpOnly": false,
-      "secure": true,
-      "sameSite": "None"
-    },
-    {
-      "name": "MUID",
-      "value": "12962D9310F16BDC3EE03BBB11956A2A",
-      "domain": ".clarity.ms",
-      "path": "/",
-      "expires": 1786082994.694662,
-      "httpOnly": false,
-      "secure": true,
-      "sameSite": "None"
-    },
-    {
-      "name": "MR",
-      "value": "0",
-      "domain": ".c.clarity.ms",
-      "path": "/",
-      "expires": 1752991794.694698,
-      "httpOnly": false,
-      "secure": true,
-      "sameSite": "None"
-    },
-    {
-      "name": "ANONCHK",
-      "value": "0",
-      "domain": ".c.clarity.ms",
-      "path": "/",
-      "expires": 1752387594.694715,
-      "httpOnly": false,
-      "secure": true,
-      "sameSite": "None"
+     "name": "userToken",
+     "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3YTRiZDM0ZDljY2FhMmZjZGZkNTg1NyIsImVtYWlsIjoibGVnYWxzcXVlZXpAeW9wbWFpbC5jb20iLCJyb2xlIjpbInN1cGVyQWRtaW4iXSwicm9sZUlkIjpbMV0sImlhdCI6MTc1MjM4Njk5NiwiZXhwIjoxNzU0OTc4OTk2fQ.uyil_3Qhmx9xgzLtXjQvQxIquVX2rBrekww-a03v21I"
     }
-  ],
-  "origins": [
-    {
-      "origin": "https://admin.sqzvip.com",
-      "localStorage": [
-        {
-          "name": "userInfo",
-          "value": "{\"_id\":\"67a4bd34d9ccaa2fcdfd5857\",\"firstName\":\"Super\",\"lastName\":\"Admin\",\"email\":\"legalsqueez@yopmail.com\",\"countryCode\":\"+91\",\"mobileNumber\":\"9268468490\",\"dateOfBirth\":\"\",\"countryId\":101,\"stateId\":4030,\"cityId\":57606,\"zipCode\":57606,\"role\":[\"superAdmin\"],\"roleId\":[1],\"manageRestaurants\":[],\"manageGolfs\":[],\"manageHealthCare\":[],\"manageHotels\":[],\"manageWellness\":[],\"Is24HoursOn\":false,\"superUserGolfs\":[],\"superUserHealthCare\":[],\"superUserHotels\":[],\"superUserRestaurants\":[],\"superUserWellness\":[],\"valletUserGolfs\":[],\"valletUserHotels\":[],\"valletUserRestaurants\":[],\"valletUserWellness\":[],\"isVerifiedUser\":true,\"token\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3YTRiZDM0ZDljY2FhMmZjZGZkNTg1NyIsImVtYWlsIjoibGVnYWxzcXVlZXpAeW9wbWFpbC5jb20iLCJyb2xlIjpbInN1cGVyQWRtaW4iXSwicm9sZUlkIjpbMV0sImlhdCI6MTc1MjM4Njk5NiwiZXhwIjoxNzU0OTc4OTk2fQ.uyil_3Qhmx9xgzLtXjQvQxIquVX2rBrekww-a03v21I\",\"refreshToken\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3YTRiZDM0ZDljY2FhMmZjZGZkNTg1NyIsImVtYWlsIjoibGVnYWxzcXVlZXpAeW9wbWFpbC5jb20iLCJyb2xlIjpbInN1cGVyQWRtaW4iXSwicm9sZUlkIjpbMV0sImlhdCI6MTc1MjM4Njk5NiwiZXhwIjoxNzY3OTM4OTk2fQ.BSQ21pnuh31Uu51Pyf1kjf4i5_MzVGIWPJWqvf9zRCI\"}"
-        },
-        {
-          "name": "maintenanceData",
-          "value": "true"
-        },
-        {
-          "name": "refreshToken",
-          "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3YTRiZDM0ZDljY2FhMmZjZGZkNTg1NyIsImVtYWlsIjoibGVnYWxzcXVlZXpAeW9wbWFpbC5jb20iLCJyb2xlIjpbInN1cGVyQWRtaW4iXSwicm9sZUlkIjpbMV0sImlhdCI6MTc1MjM4Njk5NiwiZXhwIjoxNzY3OTM4OTk2fQ.BSQ21pnuh31Uu51Pyf1kjf4i5_MzVGIWPJWqvf9zRCI"
-        },
-        {
-          "name": "pathName",
-          "value": "/dashboard"
-        },
-        {
-          "name": "kt_theme_mode_value",
-          "value": "light"
-        },
-        {
-          "name": "title",
-          "value": "Dashboard"
-        },
-        {
-          "name": "userToken",
-          "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3YTRiZDM0ZDljY2FhMmZjZGZkNTg1NyIsImVtYWlsIjoibGVnYWxzcXVlZXpAeW9wbWFpbC5jb20iLCJyb2xlIjpbInN1cGVyQWRtaW4iXSwicm9sZUlkIjpbMV0sImlhdCI6MTc1MjM4Njk5NiwiZXhwIjoxNzU0OTc4OTk2fQ.uyil_3Qhmx9xgzLtXjQvQxIquVX2rBrekww-a03v21I"
-        }
-      ]
-    }
-  ]
+   ]
+  }
+ ]
 }

@@ -5,6 +5,12 @@ node_modules/
 .env
 .env.*
 state.json
+auth.json
+storageState.json
+
+# data files
+*.xlsx
+data/
 
 # playwright artifacts
 playwright-report/
@@ -17,11 +23,24 @@ errors/
 # allure
 allure-results/
 allure-report/
+allure-report-single/
 
 # coverage/build
 coverage/
 dist/
 build/
+
+# config files
+.prettierrc.json
+auth.json
+package-lock.json
+playwright.config.js
+global-setup.js
+azure-pipelines.yml
+
+# desktop files
+desktop.ini
+NUL.git
 
 # system/editor
 .DS_Store
@@ -29,3 +48,8 @@ Thumbs.db
 .vscode/
 .idea/
 tmp/
+
+# .gitignore
+allure-report/
+allure-report-single/
+allure-results/
