@@ -28,7 +28,7 @@ test.describe.serial('Restaurant Waitlist Flow', () => {
     await restaurant.selectCategory({ category: 'Restaurants' }, 'Waitlist');
     const providers = await restaurant.getRestaurantsByProvider();
 
-    // Test Stripe
+    
     if (providers.stripe.length > 0) {
       console.log('\n🔵 Testing Stripe...');
       try {
