@@ -49,40 +49,4 @@ test.describe('White Label Waitlist Tests', () => {
     await waitlistPage.submitForm();
     await waitlistPage.clickReturnHome();
   });
-
-  // Run all rows from Excel
-  // test.only('should submit waitlist for all Excel rows', async () => {
-  //   for (let i = 0; i < testData.length; i++) {
-  //     const row = testData[i];
-      
-  //     console.log(`\n🔄 Row ${i + 1}/${testData.length} - Time: ${row.startTimeInput}`);
-      
-  //     await waitlistPage.clickWaitlistTab();
-  //     await waitlistPage.clickAndFillTime(row.startTimeInput);
-  //     await waitlistPage.fillPrice(row.price);
-  //     await waitlistPage.selectReason(row.reason);
-  //     await waitlistPage.fillDescription(row.description);
-  //     await waitlistPage.clickWaitlistButton();
-      
-  //     await waitlistPage.fillPersonalInformation({
-  //       firstName: row.firstName,
-  //       lastName: row.lastName,
-  //       country: row.country,
-  //       phone: row.phone,
-  //       email: row.email
-  //     });
-      
-  //     await waitlistPage.submitForm();
-  //     await waitlistPage.clickReturnHome();
-      
-  //     console.log(`✅ Row ${i + 1} completed`);
-      
-  //     // Navigate back for next iteration if not last row
-  //     if (i < testData.length - 1) {
-  //       await waitlistPage.navigateToWaitlist('https://commongolf.sqzvip.com/squeez');
-  //     }
-  //   }
-    
-  //   console.log(`\n🎉 All ${testData.length} rows completed successfully!`);
-  // });
 });

@@ -1,55 +1,53 @@
-# dependencies
+# Dependencies
 node_modules/
 
-# env & secrets
+# Environment & Secrets
 .env
 .env.*
-state.json
 auth.json
 storageState.json
+state.json
+auth/
 
-# data files
-*.xlsx
-data/
-
-# playwright artifacts
+# Test Artifacts & Reports
 playwright-report/
 test-results/
+allure-report/
+allure-results/
+allure-report-single/
+allure-single/
+screenshots/
+errors/
 *.trace.zip
 *.mp4
 *.png
-errors/
+*.webm
 
-# allure
-allure-results/
-allure-report/
-allure-report-single/
+# Data Files
+*.xlsx
+*.xls
+data/
 
-# coverage/build
+# Coverage & Build
 coverage/
 dist/
 build/
 
-# config files
-.prettierrc.json
-auth.json
-package-lock.json
-playwright.config.js
-global-setup.js
-azure-pipelines.yml
+# CI/CD (optional - uncomment if you don't want these in Git)
+# azure-pipelines.yml
+# Jenkinsfile
+# .github/
 
-# desktop files
-desktop.ini
-NUL.git
-
-# system/editor
+# System & Editor
 .DS_Store
 Thumbs.db
+desktop.ini
 .vscode/
 .idea/
 tmp/
+NUL
+NULgit
 
-# .gitignore
-allure-report/
-allure-report-single/
-allure-results/
+# Misc
+.prettierrc.json
+*.log
