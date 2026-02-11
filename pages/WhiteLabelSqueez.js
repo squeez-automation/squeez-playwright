@@ -16,14 +16,6 @@ class WhiteLabelSqueez extends BasePage {
     };
   }
   
-  async fillBookingForm(data) {
-    await this.fillRandomDateInField();
-    await this.clickAndFillTime(data.startTimeInput);
-    await this.clickAndFillPriceField(data.priceInput);
-    await this.clickAndFillPeopleField(data.peopleInput);
-    await this.clickAndFillDesc(data.descInput);
-    await this.clickSqueezWaitlistButton();
-  }
 }
 
 module.exports = WhiteLabelSqueez;

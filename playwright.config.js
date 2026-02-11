@@ -6,18 +6,23 @@ module.exports = defineConfig({
   testMatch: '**/*.test.js',  
   workers: 1,
   timeout: 120000,
-  globalSetup: require.resolve('./global-setup'),
   
-  reporter: [
-    ['list'], 
-    ['allure-playwright', { outputFolder: 'allure-results' }]
+  
+   reporter: [
+    ['html'],
+    ['list'],
+    ['allure-playwright', {
+      outputFolder: 'allure-results',
+      detail: true,
+      suiteTitle: false
+    }]
   ],
 
   use: {
     headless: false,
     baseURL: process.env.BASE_URL,
     viewport: null,
-    storageState: './auth/state.json',
+    storageState: './auth/state.json',  // ✅ This will use saved session
     ignoreHTTPSErrors: true,
     actionTimeout: 30000,
     navigationTimeout: 60000,
@@ -27,10 +32,9 @@ module.exports = defineConfig({
       slowMo: 0,
     },
 
-    // 🔥 REDUCE FILE SIZE - Change these:
-    screenshot: 'only-on-failure',           // or 'only-on-failure' if you need them
-    video: 'off',                // or 'retain-on-failure' 
-    trace: 'off',                // or 'on-first-retry'
+    screenshot: 'only-on-failure',
+    video: 'off',
+    trace: 'off',
   },
 
   projects: [
