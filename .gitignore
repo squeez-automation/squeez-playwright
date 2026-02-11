@@ -23,10 +23,6 @@ errors/
 *.png
 *.webm
 
-# Data Files
-*.xlsx
-*.xls
-data/
 
 # Coverage & Build
 coverage/
