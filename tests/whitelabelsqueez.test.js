@@ -25,7 +25,7 @@ test.describe.serial('WhiteLabel Squeez Flow', () => {
     basePage.excelData = randomRow;
   });
 
-  test('Complete Squeez booking flow with FreedomPay', async ({}, testInfo) => {
+  test('Complete Squeez booking flow ', async ({}, testInfo) => {
     try {
       const data = basePage.excelData;
       
@@ -45,8 +45,8 @@ test.describe.serial('WhiteLabel Squeez Flow', () => {
       await basePage.fillPopupForm(data, testInfo);
       console.log('✅ User details submitted');
       
-      console.log('\n💳 Step 4: Processing FreedomPay payment...');
-      await basePage.fillFreedomCardAndPay(testInfo);
+      console.log('\n💳 Step 4: Processing payment...');
+      await basePage.fillStripeCardAndPay(testInfo);
       console.log('✅ Payment processing completed');
       
       console.log('\n🎉 Step 5: Handling success confirmation...');

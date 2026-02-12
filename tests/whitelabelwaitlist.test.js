@@ -16,7 +16,7 @@ test.describe('White Label Waitlist Tests', () => {
 
   test.beforeEach(async ({ page }) => {
     waitlistPage = new WhiteLabelWaitlistPage(page);
-    await waitlistPage.navigateToWaitlist('https://commongolf.sqzvip.com/squeez');
+    await waitlistPage.navigateToWaitlist('https://dhaba.sqzvip.com/squeez');
   });
 
   test('should successfully submit waitlist form from Excel', async () => {

@@ -5,7 +5,7 @@ const WhiteLabelBookingPage = require('../pages/WhiteLabelBookingPage');
 test('complete booking with payment', async ({ page }) => {
   const bookingPage = new WhiteLabelBookingPage(page);
   
-  await bookingPage.navigate('https://commongolf.sqzvip.com');
+  await bookingPage.navigate('https://dhaba.sqzvip.com/');
   
   await bookingPage.selectFirstTimeSlot();
   await bookingPage.selectNumberOfGuests('2');

@@ -69,15 +69,43 @@ class BasePage {
       stripeCvc: (frame) => frame.getByPlaceholder('CVC'),
       stripeZip: (frame) => frame.getByPlaceholder('Zip Code'),
       payNowButton: (frame) => frame.getByRole('button', { name: 'Pay Now' }),
+
+
+      freedomPaymentIframe: () => this.page.locator('iframe[title="Payment"]'),
+      freedomPaymentRoot: (frame) => frame.locator('#root'),
+      freedomPayWithCardBtn: (frame) => frame.getByRole('button', { name: 'Pay with Card' }),
+      freedomNestedIframe: (frame) => frame.locator('iframe[title="FreedomPay iFrame"]'),
+      freedomCardNumber: (frame) => frame.getByRole('textbox', { name: 'Card Number' }),
+      freedomExpiry: (frame) => frame.getByRole('textbox', { name: 'Expiration Date' }),
+      freedomSecurityCode: (frame) => frame.getByRole('textbox', { name: 'Security Code' }),
+      freedomPostalCode: (frame) => frame.getByRole('textbox', { name: 'Postal Code' }),
+      freedomPayButton: (frame) => frame.getByRole('button', { name: 'Pay' }),
+
+      fiservPaymentIframe: () => this.page.locator('iframe[title="Payment"]'),
+      fiservPaymentRoot: (frame) => frame.locator('#root'),
+      fiservPayWithCardBtn: (frame) => frame.getByRole('button', { name: 'Pay with Card' }),
+      fiservNestedIframe: (frame) => frame.locator('#root iframe'), // UPDATED - Codegen shows this
+      fiservCardNumber: (frame) => frame.getByRole('textbox', { name: 'Enter card number' }),
+      fiservExpiry: (frame) => frame.getByRole('textbox', { name: 'Enter expiration date' }),
+      fiservCvc: (frame) => frame.getByRole('textbox', { name: 'Enter cvc number' }),
+      fiservPostalCode: (frame) => frame.getByRole('textbox', { name: 'Enter postal code' }),
+      fiservPayNowBtn: (frame) => frame.getByRole('button', { name: 'Pay Now' }),
+
+      // Remove old Stripe locators and replace with these:
+      stripePaymentIframe: () => this.page.locator('iframe[title="Payment"]').nth(1),
+      stripePayWithCardBtn: (frame) => frame.getByRole('button', { name: 'Pay with Card' }),
+      stripeCardIframe: (frame) => frame.locator('iframe[name*="__privateStripeFrame"]').first(),
+      stripeCardInput: (frame) => frame.getByRole('textbox', { name: 'Credit or debit card number' }),
+      stripeExpiryIframe: (frame) => frame.locator('iframe[name*="__privateStripeFrame"]').nth(1),
+      stripeExpiryInput: (frame) => frame.getByRole('textbox', { name: 'Credit or debit card' }),
+      stripeCvcIframe: (frame) => frame.locator('iframe[name*="__privateStripeFrame"]').nth(2),
+      stripeCvcInput: (frame) => frame.getByRole('textbox', { name: 'Credit or debit card CVC/CVV' }),
+      stripeZipInput: (frame) => frame.getByRole('textbox', { name: 'Zip Code' }),
+      stripePayButton: (frame) => frame.getByRole('button', { name: 'Pay Now' }),
     };
   }
 //========================================================================================
 
-
-
-
-  // ────────── HELPER METHODS ──────────────────
-  
   async getActiveTab() {
     const isSqueez = await this.fields.squeezTab().isVisible();
     return isSqueez ? 'Squeez' : 'Waitlist';
@@ -87,8 +115,6 @@ class BasePage {
     const tab = await this.getActiveTab();
     return tab === 'Squeez' ? '#uncontrolled-tab-example-tabpane-Squeez' : '#uncontrolled-tab-example-tabpane-Waitlist';
   }
-
-  // ────────── SUCCESS POPUP ──────────────────
   
 async handleSuccessPopup(provider = 'unknown', testInfo = null) {
   console.log('🔍 Handling success popup...');
@@ -172,8 +198,6 @@ async handleSuccessPopup(provider = 'unknown', testInfo = null) {
   }
 }
 
-  // ────────── CATEGORY SELECTION (DYNAMIC & AUTO-WAIT) ──────────────────
-
 async selectCategory(data, tabType = 'Squeez', testInfo = null) {
     const category = data.category || '';
     console.log(`🎯 Selecting category: ${category} (${tabType})`);
@@ -212,8 +236,6 @@ async selectCategory(data, tabType = 'Squeez', testInfo = null) {
       throw error;
     }
   }
-
-  // ────────── BUSINESS SELECTION ──────────────────
   
   async selectBusinessByName(businessName, tabType = 'Squeez', testInfo = null) {
     console.log(`🎯 Selecting: ${businessName} (${tabType})`);
@@ -266,8 +288,6 @@ async selectCategory(data, tabType = 'Squeez', testInfo = null) {
       throw error;
     }
   }
-
-  // ────────── TAB SWITCHING ──────────────────
   
   async clickWaitlistTab() {
   console.log('📑 Clicking Waitlist tab...');
@@ -279,8 +299,6 @@ async selectCategory(data, tabType = 'Squeez', testInfo = null) {
     console.log('✅ Already active');
     return;
   }
-  
-
   
   await tab.click();
   // Wait for tab to become active
@@ -500,8 +518,6 @@ formatExcelTime(excelValue) {
   }
 }
 
-  // ────────── SUBMIT BUTTON ──────────────────
-  
   async clickSqueezWaitlistButton() {
   const tabPane = await this.getTabPane();
   const button = this.fields.submitButton(tabPane);
@@ -513,80 +529,120 @@ formatExcelTime(excelValue) {
   console.log(`✅ ${buttonText} button clicked`);
 }
  //=======================================================================================================
-// async fillStripeCardAndPay(testInfo = null) {
-//   try {
-//     console.log('💳 Starting Stripe payment...');
+async fillStripeCardAndPay(testInfo = null) {
+  try {
+    console.log('💳 Starting Stripe payment...');
+    await this.page.waitForTimeout(3000);
     
-//     const paymentIframe = this.page.locator('iframe[title="Payment"]').first();
-//     const hasPayment = await paymentIframe.isVisible({ timeout: 5000 }).catch(() => false);
+    // IMPORTANT: Use .nth(1) not .first() for Stripe
+    const paymentIframe = this.page.locator('iframe[title="Payment"]').nth(1);
+    const hasPayment = await paymentIframe.isVisible({ timeout: 5000 }).catch(() => false);
     
-//     if (!hasPayment) {
-//       console.log('ℹ️ No payment needed');
-//       return;
-//     }
+    if (!hasPayment) {
+      console.log('ℹ️ No payment needed');
+      return;
+    }
     
-//     const paymentFrame = await paymentIframe.contentFrame();
-//     await this.page.waitForTimeout(2000);
+    console.log('✅ Payment iframe found, accessing content...');
+    const paymentFrame = await paymentIframe.contentFrame();
     
-//     await paymentFrame.getByRole('button', { name: 'Pay with Card' }).click();
-//     console.log('✅ Pay with Card clicked');
-//     await this.page.waitForTimeout(2000);
+    if (!paymentFrame) {
+      throw new Error('Failed to access payment iframe content');
+    }
     
-//     // Stripe card number
-//     const cardIframe = paymentFrame.locator('iframe[title*="Secure card number"]');
-//     const cardFrame = await cardIframe.contentFrame();
-//     await cardFrame.locator('[name="cardnumber"]').fill('4242424242424242');
+    console.log('⏳ Waiting for payment interface to load...');
+    await this.page.waitForTimeout(3000);
+    await paymentFrame.locator('button').first().waitFor({ state: 'visible', timeout: 10000 });
+    console.log('✅ Payment interface loaded');
     
-//     // Stripe expiry
-//     const expiryIframe = paymentFrame.locator('iframe[title*="Secure expiration"]');
-//     const expiryFrame = await expiryIframe.contentFrame();
-//     await expiryFrame.locator('[name="exp-date"]').fill('1226');
+    // Click "Pay with Card" button
+    console.log('🔍 Looking for "Pay with Card" button...');
+    const payWithCardBtn = paymentFrame.getByRole('button', { name: 'Pay with Card' });
+    await payWithCardBtn.scrollIntoViewIfNeeded();
+    await payWithCardBtn.click();
+    console.log('✅ Pay with Card clicked');
     
-//     // Stripe CVC
-//     const cvcIframe = paymentFrame.locator('iframe[title*="Secure CVC"]');
-//     const cvcFrame = await cvcIframe.contentFrame();
-//     await cvcFrame.locator('[name="cvc"]').fill('123');
+    // Wait for nested Stripe iframes to load
+    await this.page.waitForTimeout(4000);
     
-//     // Zip code
-//     await paymentFrame.locator('input[placeholder="Zip Code"]').fill('12345');
-//     console.log('✅ Card details filled');
+    // Fill card details in nested Stripe iframes
+    await this.fillStripeCardDetails(paymentFrame);
     
-//     await paymentFrame.getByRole('button', { name: /pay/i }).click();
-//     console.log('✅ Payment submitted');
+    console.log('✅ Payment completed');
     
-//     // Wait for iframe to disappear (payment processed)
-//     await paymentIframe.waitFor({ state: 'hidden', timeout: 15000 });
-//     console.log('✅ Payment completed');
-    
-//   } catch (error) {
-//     console.error('❌ Stripe payment error:', error.message);
-//     if (testInfo) {
-//       await this.captureScreenshot('stripe-payment', 'FAILED', error.message, testInfo);
-//     }
-//     throw error;
-//   }
-// }
+  } catch (error) {
+    console.error('❌ Stripe payment error:', error.message);
+    if (testInfo) {
+      await this.captureScreenshot('stripe-payment', 'FAILED', error.message, testInfo);
+    }
+    throw error;
+  }
+}
 
+async fillStripeCardDetails(paymentFrame) {
+  console.log('💳 Filling card details...');
+  await this.page.waitForTimeout(2000);
+  
+  // Card number - first nested iframe with __privateStripeFrame in name
+  console.log('🔍 Looking for card number iframe...');
+  const cardIframe = paymentFrame.locator('iframe[name*="__privateStripeFrame"]').first();
+  await cardIframe.waitFor({ state: 'visible', timeout: 10000 });
+  const cardFrame = await cardIframe.contentFrame();
+  console.log('✅ Card number iframe loaded');
+  
+  const cardInput = cardFrame.getByRole('textbox', { name: 'Credit or debit card number' });
+  await cardInput.waitFor({ state: 'visible', timeout: 10000 });
+  await cardInput.click();
+  await cardInput.fill('4242 4242 4242 4242');
+  console.log('✅ Card number filled');
+  
+  // Expiry date - second nested iframe
+  const expiryIframe = paymentFrame.locator('iframe[name*="__privateStripeFrame"]').nth(1);
+  await expiryIframe.waitFor({ state: 'visible', timeout: 10000 });
+  const expiryFrame = await expiryIframe.contentFrame();
+  
+  const expiryInput = expiryFrame.getByRole('textbox', { name: 'Credit or debit card' });
+  await expiryInput.click();
+  await expiryInput.fill('02 / 29');
+  console.log('✅ Expiry filled');
+  
+  // CVC - third nested iframe
+  const cvcIframe = paymentFrame.locator('iframe[name*="__privateStripeFrame"]').nth(2);
+  await cvcIframe.waitFor({ state: 'visible', timeout: 10000 });
+  const cvcFrame = await cvcIframe.contentFrame();
+  
+  const cvcInput = cvcFrame.getByRole('textbox', { name: 'Credit or debit card CVC/CVV' });
+  await cvcInput.click();
+  await cvcInput.fill('321');
+  console.log('✅ CVC filled');
+  
+  // Zip code (in main payment frame, not nested)
+  const zipInput = paymentFrame.getByRole('textbox', { name: 'Zip Code' });
+  await zipInput.click();
+  await zipInput.fill('54122');
+  console.log('✅ Zip code filled');
+  
+  // Submit payment
+  await this.page.waitForTimeout(1000);
+  const payButton = paymentFrame.getByRole('button', { name: 'Pay Now' });
+  await payButton.click();
+  console.log('✅ Payment submitted');
+  
+  await this.page.waitForTimeout(6000);
+}
 
-
-
-//=================================================================== 
-// ══════════════════════════════════════════════════════════════════
-// FINAL OPTIMIZED FREEDOMPAY PAYMENT METHOD
-// Add these two methods to your BasePage.js
-// ══════════════════════════════════════════════════════════════════
-
+//========================================================================
 async fillFreedomCardAndPay(testInfo = null) {
   try {
     console.log('💳 Starting FreedomPay payment...');
     await this.page.waitForTimeout(3000);
     
     // Find payment iframe (try nth(1) first, then .first())
-    let paymentIframe = this.page.locator('iframe[title="Payment"]').nth(1);
+    let paymentIframe = this.fields.freedomPaymentIframe().nth(1);
     let hasIframe = await paymentIframe.isVisible({ timeout: 5000 }).catch(() => false);
     
     if (!hasIframe) {
-      paymentIframe = this.page.locator('iframe[title="Payment"]').first();
+      paymentIframe = this.fields.freedomPaymentIframe().first();
       hasIframe = await paymentIframe.isVisible({ timeout: 5000 }).catch(() => false);
     }
     
@@ -598,24 +654,24 @@ async fillFreedomCardAndPay(testInfo = null) {
     console.log('✅ Payment iframe found, accessing content...');
     const paymentFrame = await paymentIframe.contentFrame();
     
-    // CRITICAL: Wait for React app to load in iframe
-    console.log('⏳ Waiting for React app to load in payment iframe...');
-    await paymentFrame.locator('#root').waitFor({ state: 'visible', timeout: 10000 });
+    // Wait for React app to load
+    console.log('⏳ Waiting for React app to load...');
+    await this.fields.freedomPaymentRoot(paymentFrame).waitFor({ state: 'visible', timeout: 10000 });
     await this.page.waitForTimeout(3000);
     await paymentFrame.locator('button').first().waitFor({ state: 'visible', timeout: 10000 });
-    console.log('✅ React app loaded - buttons are visible');
+    console.log('✅ React app loaded');
     
-    // Click "Pay with Card" button
+    // Click "Pay with Card"
     console.log('🔍 Looking for "Pay with Card" button...');
-    const payWithCardButton = paymentFrame.getByRole('button', { name: 'Pay with Card' });
-    await payWithCardButton.scrollIntoViewIfNeeded();
-    await payWithCardButton.click();
-    console.log('✅ "Pay with Card" button clicked (using getByRole)');
+    const payWithCardBtn = this.fields.freedomPayWithCardBtn(paymentFrame);
+    await payWithCardBtn.scrollIntoViewIfNeeded();
+    await payWithCardBtn.click();
+    console.log('✅ "Pay with Card" clicked');
     
     // Wait for FreedomPay nested iframe
     await this.page.waitForTimeout(4000);
     console.log('🔍 Looking for FreedomPay nested iframe...');
-    const freedomIframe = paymentFrame.locator('iframe[title="FreedomPay iFrame"]');
+    const freedomIframe = this.fields.freedomNestedIframe(paymentFrame);
     await freedomIframe.waitFor({ state: 'visible', timeout: 15000 });
     const freedomFrame = await freedomIframe.contentFrame();
     console.log('✅ FreedomPay iframe loaded');
@@ -625,7 +681,7 @@ async fillFreedomCardAndPay(testInfo = null) {
     console.log('✅ Payment completed');
     
   } catch (error) {
-    console.error('❌ FreedomPay payment error:', error.message);
+    console.error('❌ FreedomPay error:', error.message);
     if (testInfo) {
       await this.captureScreenshot('freedompay-error', 'FAILED', error.message, testInfo);
     }
@@ -638,32 +694,32 @@ async fillFreedomPayCardFields(freedomFrame) {
   await this.page.waitForTimeout(2000);
   
   // Card number
-  const cardNumber = freedomFrame.getByRole('textbox', { name: 'Card Number' });
+  const cardNumber = this.fields.freedomCardNumber(freedomFrame);
   await cardNumber.waitFor({ state: 'visible', timeout: 10000 });
   await cardNumber.click();
   await cardNumber.fill('4242 4242 4242 4242');
   console.log('✅ Card number filled');
   
   // Expiry
-  const expiry = freedomFrame.getByRole('textbox', { name: 'Expiration Date' });
+  const expiry = this.fields.freedomExpiry(freedomFrame);
   await expiry.click();
   await expiry.fill('02/32');
   console.log('✅ Expiry filled');
   
   // Security code
-  const securityCode = freedomFrame.getByRole('textbox', { name: 'Security Code' });
+  const securityCode = this.fields.freedomSecurityCode(freedomFrame);
   await securityCode.click();
   await securityCode.fill('545');
   console.log('✅ Security code filled');
   
   // Postal code
-  const postalCode = freedomFrame.getByRole('textbox', { name: 'Postal Code' });
+  const postalCode = this.fields.freedomPostalCode(freedomFrame);
   await postalCode.click();
   await postalCode.fill('32145');
   console.log('✅ Postal code filled');
   
   // Submit
-  const payButton = freedomFrame.getByRole('button', { name: 'Pay' });
+  const payButton = this.fields.freedomPayButton(freedomFrame);
   await payButton.click();
   console.log('✅ Payment submitted');
   
@@ -675,63 +731,96 @@ async fillFreedomPayCardFields(freedomFrame) {
 
 
 //===========================================================================
-// In BasePage.js, update fillFiservCardAndPay:
 
-// async fillFiservCardAndPay(testInfo = null) {
-//   try {
-//     console.log('💳 Starting Fiserv payment...');
+async fillFiservCardAndPay(testInfo = null) {
+  try {
+    console.log('💳 Starting Fiserv payment...');
+    await this.page.waitForTimeout(3000);
     
-//     await this.page.waitForTimeout(2000);
+    // Codegen shows .nth(1) is correct for Fiserv
+    const paymentIframe = this.fields.fiservPaymentIframe().nth(1);
+    const hasIframe = await paymentIframe.isVisible({ timeout: 10000 }).catch(() => false);
     
-//     const paymentIframe = this.page.locator('iframe[title="Payment"]').first();
-//     const isVisible = await paymentIframe.isVisible({ timeout: 5000 }).catch(() => false);
+    if (!hasIframe) {
+      console.log('ℹ️ No payment required');
+      return;
+    }
     
-//     if (!isVisible) {
-//       console.log('ℹ️ No payment needed');
-//       return;
-//     }
+    console.log('✅ Payment iframe found');
+    const paymentFrame = await paymentIframe.contentFrame();
     
-//     console.log('✅ Payment iframe found');
-//     const paymentFrame = this.page.frameLocator('iframe[title="Payment"]').first();
+    // Wait for React app to load
+    console.log('⏳ Waiting for React app to load...');
+    await this.fields.fiservPaymentRoot(paymentFrame).waitFor({ state: 'visible', timeout: 10000 });
+    await this.page.waitForTimeout(3000);
+    await paymentFrame.locator('button').first().waitFor({ state: 'visible', timeout: 10000 });
+    console.log('✅ React app loaded');
     
-//     const payButton = paymentFrame.locator('button.squeez-payment-btn');
-//     await payButton.waitFor({ state: 'visible', timeout: 15000 });
-//     await payButton.click();
-//     console.log('✅ Pay with Card clicked');
+    // Click "Pay with Card"
+    console.log('🔍 Looking for "Pay with Card" button...');
+    const payButton = this.fields.fiservPayWithCardBtn(paymentFrame);
+    await payButton.scrollIntoViewIfNeeded();
+    await payButton.click();
+    console.log('✅ Pay with Card clicked');
     
-//     await this.page.waitForTimeout(3000);
+    // Wait for nested iframe
+    await this.page.waitForTimeout(4000);
+    console.log('🔍 Looking for Fiserv nested iframe...');
+    const cardIframe = this.fields.fiservNestedIframe(paymentFrame);
+    await cardIframe.waitFor({ state: 'visible', timeout: 15000 });
+    const cardFrame = await cardIframe.contentFrame();
+    console.log('✅ Fiserv iframe loaded');
     
-//     const cardFrame = paymentFrame.frameLocator('iframe[src*="payment"]').first();
+    // Fill card details
+    await this.fillFiservCardFields(cardFrame, paymentFrame);
+    console.log('✅ Payment completed');
     
-//     const cardNumberInput = cardFrame.locator('#card-number-input');
-//     await cardNumberInput.waitFor({ state: 'visible', timeout: 10000 });
-//     await cardNumberInput.fill('4242424242424242');
-    
-//     await cardFrame.locator('#expiration-input').fill('12/25');
-//     await cardFrame.locator('#cvc-input').fill('123');
-//     await cardFrame.locator('#postal-code-input').fill('12345');
-//     console.log('✅ Card details filled');
-    
-//     await paymentFrame.locator('button:has-text("Pay Now")').click();
-//     console.log('✅ Payment submitted');
-    
-//     await this.page.waitForTimeout(2000);
-//     console.log('✅ Payment completed');
-    
-//   } catch (error) {
-//     console.error('❌ Payment error:', error.message);
-    
-//     if (testInfo) {
-//       const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
-//       await this.page.screenshot({ 
-//         path: `screenshots/payment-error-${timestamp}.png`,
-//         fullPage: true 
-//       });
-//     }
-    
-//     throw error;
-//   }
-// }
+  } catch (error) {
+    console.error('❌ Fiserv payment error:', error.message);
+    if (testInfo) {
+      await this.captureScreenshot('fiserv-error', 'FAILED', error.message, testInfo);
+    }
+    throw error;
+  }
+}
+
+async fillFiservCardFields(cardFrame, paymentFrame) {
+  console.log('💳 Filling card details...');
+  await this.page.waitForTimeout(2000);
+  
+  // Card number
+  const cardNumber = this.fields.fiservCardNumber(cardFrame);
+  await cardNumber.waitFor({ state: 'visible', timeout: 10000 });
+  await cardNumber.click();
+  await cardNumber.fill('4242 4242 4242 4242');
+  console.log('✅ Card number filled');
+  
+  // Expiry
+  const expiry = this.fields.fiservExpiry(cardFrame);
+  await expiry.click();
+  await expiry.fill('02 / 29');
+  console.log('✅ Expiry filled');
+  
+  // CVC
+  const cvc = this.fields.fiservCvc(cardFrame);
+  await cvc.click();
+  await cvc.fill('321');
+  console.log('✅ CVC filled');
+  
+  // Postal code
+  const postalCode = this.fields.fiservPostalCode(cardFrame);
+  await postalCode.click();
+  await postalCode.fill('32145');
+  console.log('✅ Postal code filled');
+  
+  // Submit (Pay Now button is in paymentFrame, NOT cardFrame)
+  const payNowBtn = this.fields.fiservPayNowBtn(paymentFrame);
+  await payNowBtn.click();
+  console.log('✅ Payment submitted');
+  
+  await this.page.waitForTimeout(6000);
+}
+
 
 
 
