@@ -1,6 +1,6 @@
 const { test } = require('@playwright/test');
-const Restaurant = require('../pages/Restaurant');
-const { readExcelData } = require('../utils/readExcel'); // 👈 make sure this exists and works
+const Restaurant = require('../pages/accessrestaurantsqueez');  // ✅ Import from pages folder
+const { readExcelData } = require('../utils/readExcel');
 
 test.describe.serial('Restaurant Squeez Flow (Auto Detect Payment)', () => {
   test('Run Restaurant booking using Excel data', async ({ page, request }) => {
